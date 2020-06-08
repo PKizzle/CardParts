@@ -33,6 +33,18 @@ public protocol CardPartsTheme {
     var detailTextFont: UIFont { get set }
     var detailTextColor: UIColor { get set }
     
+    // CardPartAttributedTextView
+    var smallAttributedTextFont: UIFont { get set }
+    var smallAttributedTextColor: UIColor { get set }
+    var normalAttributedTextFont: UIFont { get set }
+    var normalAttributedTextColor: UIColor { get set }
+    var titleAttributedTextFont: UIFont { get set }
+    var titleAttributedTextColor: UIColor { get set }
+    var headerAttributedTextFont: UIFont { get set }
+    var headerAttributedTextColor: UIColor { get set }
+    var detailAttributedTextFont: UIFont { get set }
+    var detailAttributedTextColor: UIColor { get set }
+    
     // CardPartTitleView
     var titleFont: UIFont { get set }
     var titleColor: UIColor { get set }
@@ -98,6 +110,18 @@ public class CardPartsMintTheme: CardPartsTheme {
     public var detailTextFont: UIFont = UIFont(name: "HelveticaNeue", size: CGFloat(12))!
     public var detailTextColor: UIColor = UIColor.color(136, green: 136, blue: 136)
     
+    // CardPartAttributedTextView
+    public var smallAttributedTextFont: UIFont = UIFont(name: "HelveticaNeue", size: CGFloat(10))!
+    public var smallAttributedTextColor: UIColor = UIColor.color(136, green: 136, blue: 136)
+    public var normalAttributedTextFont: UIFont = UIFont(name: "HelveticaNeue", size: CGFloat(12))!
+    public var normalAttributedTextColor: UIColor = UIColor.color(136, green: 136, blue: 136)
+    public var titleAttributedTextFont: UIFont = UIFont(name: "HelveticaNeue-Medium", size: CGFloat(16))!
+    public var titleAttributedTextColor: UIColor = UIColor.color(17, green: 17, blue: 17)
+    public var headerAttributedTextFont: UIFont = UIFont.turboGenericFontBlack(.header)
+    public var headerAttributedTextColor: UIColor = UIColor.turboCardPartTitleColor
+    public var detailAttributedTextFont: UIFont = UIFont(name: "HelveticaNeue", size: CGFloat(12))!
+    public var detailAttributedTextColor: UIColor = UIColor.color(136, green: 136, blue: 136)
+    
     // CardPartTitleView
     public var titleFont: UIFont = UIFont(name: "HelveticaNeue-Medium", size: CGFloat(16))!
     public var titleColor: UIColor = UIColor.color(17, green: 17, blue: 17)
@@ -160,6 +184,18 @@ public class CardPartsTurboTheme: CardPartsTheme {
     public var headerTextColor: UIColor = UIColor.turboCardPartTitleColor
     public var detailTextFont: UIFont = UIFont.turboGenericFont(.small)
     public var detailTextColor: UIColor = UIColor.turboCardPartTextColor
+    
+    // CardPartAttributedTextView
+    public var smallAttributedTextFont: UIFont = UIFont.turboGenericFont(.x_Small)
+    public var smallAttributedTextColor: UIColor = UIColor.turboCardPartTextColor
+    public var normalAttributedTextFont: UIFont = UIFont.turboGenericFont(.normal)
+    public var normalAttributedTextColor: UIColor = UIColor.turboCardPartTextColor
+    public var titleAttributedTextFont: UIFont = UIFont.turboGenericMediumFont(.medium)
+    public var titleAttributedTextColor: UIColor = UIColor.turboCardPartTitleColor
+    public var headerAttributedTextFont: UIFont = UIFont.turboGenericFontBlack(.header)
+    public var headerAttributedTextColor: UIColor = UIColor.turboCardPartTitleColor
+    public var detailAttributedTextFont: UIFont = UIFont.turboGenericFont(.small)
+    public var detailAttributedTextColor: UIColor = UIColor.turboCardPartTextColor
     
     // CardPartTitleView
     public var titleFont: UIFont = UIFont.turboGenericMediumFont(.medium)

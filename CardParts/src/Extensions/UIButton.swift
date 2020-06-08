@@ -6,6 +6,7 @@
 //  Copyright © 2017 Intuit, Inc. All rights reserved.
 //
 
+import Foundation
 import UIKit
 
 typealias UIButtonTargetClosure = (UIButton) -> ()

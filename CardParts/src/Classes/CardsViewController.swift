@@ -42,6 +42,10 @@ open class CardsViewController : UIViewController, UICollectionViewDataSource, U
     let editButtonOffset : CGFloat = 24
     let editButtonHeight : CGFloat = 50
     let editButtonWidth : CGFloat = 50
+    let editButtonImage = "budgets_disclosure_icon"
+    
+    // allow customization of cardCellMargins for an individual CardsViewController; still default to theme
+    public var cardCellMargins : UIEdgeInsets = CardParts.theme.cardCellMargins
 
     var cardControllers = [CardInfo]()
 	var bag = DisposeBag()
@@ -82,21 +86,21 @@ open class CardsViewController : UIViewController, UICollectionViewDataSource, U
         view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[collectionView]|", options: [], metrics: nil, views: ["collectionView" : collectionView!]))
         view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[collectionView]|", options: [], metrics: nil, views: ["collectionView" : collectionView!]))
         
-        let newValue = view.bounds.width.rounded() - (CardParts.theme.cardCellMargins.left + CardParts.theme.cardCellMargins.right)
+        let newValue = view.bounds.width.rounded() - (cardCellMargins.left + cardCellMargins.right)
         if newValue != cardCellWidth.value {
             cardCellWidth.accept(newValue)
         }
     }
 
     open override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        cardCellWidth.accept(size.width.rounded() - (CardParts.theme.cardCellMargins.left + CardParts.theme.cardCellMargins.right))
+        cardCellWidth.accept(size.width.rounded() - (cardCellMargins.left + cardCellMargins.right))
         invalidateLayout()
     }
     
     // functionality that happens when the view appears
     open override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        let newValue = view.bounds.width.rounded() - (CardParts.theme.cardCellMargins.left + CardParts.theme.cardCellMargins.right)
+        let newValue = view.bounds.width.rounded() - (cardCellMargins.left + cardCellMargins.right)
         if newValue != cardCellWidth.value {
             cardCellWidth.accept(newValue)
         }
@@ -122,6 +126,17 @@ open class CardsViewController : UIViewController, UICollectionViewDataSource, U
 		collectionView.reloadData()
 		collectionView.collectionViewLayout.invalidateLayout()
 	}
+    
+    /// Method provides option to reload cards based on the indexPaths row and sections of collectionView.
+    /// - Parameters:
+    ///   - cards: list of cards all the cards
+    ///   - indexPaths: indexPath for the cards which needs to be reloaded.
+    public func loadSpecificCards(cards: [CardController] , indexPaths: [IndexPath]) {
+        setCardControllers(cards: cards)
+        registerCells(cards: cards)
+        collectionView.reloadItems(at: indexPaths)
+        collectionView.collectionViewLayout.invalidateLayout()
+    }
 
 	private func setCardControllers(cards: [CardController]) {
 		var cardInfos: [CardInfo] = []
@@ -251,7 +266,13 @@ open class CardsViewController : UIViewController, UICollectionViewDataSource, U
         cell.cardContentView.removeConstraints(cell.cardContentConstraints)
         cell.cardContentConstraints.removeAll()
         
-        let metrics = ["cardContentWidth": cardCellWidth.value]
+        let metrics : [String: Any]
+        if let customMarginController = viewController as? CustomMarginCardTrait {
+            let margin = customMarginController.customMargin()
+            metrics = ["cardContentWidth": cardCellWidth.value + (cardCellMargins.left + cardCellMargins.right) - (2 * margin)]
+        } else {
+            metrics = ["cardContentWidth": cardCellWidth.value]
+        }
         
         cell.cardContentConstraints.append(contentsOf:NSLayoutConstraint.constraints(withVisualFormat: "H:|[view(cardContentWidth)]|", options: [], metrics: metrics, views: ["view" : viewController.view!]))
         cell.cardContentConstraints.append(contentsOf:NSLayoutConstraint.constraints(withVisualFormat: "V:|[view]|", options: [], metrics: nil, views: ["view" : viewController.view!]))

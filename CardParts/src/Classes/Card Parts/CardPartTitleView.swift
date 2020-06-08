@@ -44,6 +44,13 @@ public class CardPartTitleView : UIView, CardPartView {
             }
         }
     }
+	public var menuButtonImageName: String = "arrowdown" {
+		didSet {
+			if type == .titleWithMenu || type == .titleWithActionableButton {
+                menuButtonImage = AssetManager.shared.image(for: .arrowDown)
+			}
+		}
+	}
 	public var menuOptionObserver: ((String, Int) -> Void)?
 	public var menuActionableCallback: (()->())?
 	
@@ -181,6 +188,12 @@ extension Reactive where Base: CardPartTitleView {
 	public var menuOptions: Binder<[String]?>{
 		return Binder(self.base) { (titleView, menuOptions) -> () in
 			titleView.menuOptions = menuOptions
+		}
+	}
+	
+	public var menuButtonImageName: Binder<String>{
+		return Binder(self.base) { (titleView, menuButtonImageName) -> () in
+			titleView.menuButtonImageName = menuButtonImageName
 		}
 	}
     
