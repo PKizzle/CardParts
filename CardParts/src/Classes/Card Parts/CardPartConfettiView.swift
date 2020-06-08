@@ -135,7 +135,7 @@ public class CardPartConfettiView: UIView, CardPartView {
         case .mixed:
             return confettiImages?[index]
         case .confetti:
-            AssetManager.shared.image(for: .confetti)
+            return AssetManager.shared.image(for: .confetti)
         }
     }
 }
